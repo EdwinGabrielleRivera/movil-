@@ -72,13 +72,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const OnbordingWidget() : const SingWidget(),
+          appStateNotifier.loggedIn ? const DashboardWidget() : const SingWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const OnbordingWidget() : const SingWidget(),
+              appStateNotifier.loggedIn ? const DashboardWidget() : const SingWidget(),
         ),
         FFRoute(
           name: 'sing',
@@ -86,14 +86,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const SingWidget(),
         ),
         FFRoute(
-          name: 'onbording',
-          path: '/onbording',
-          builder: (context, params) => const OnbordingWidget(),
-        ),
-        FFRoute(
           name: 'dashboard',
           path: '/dashboard',
           builder: (context, params) => const DashboardWidget(),
+        ),
+        FFRoute(
+          name: 'onbo',
+          path: '/onbo',
+          builder: (context, params) => const OnboWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

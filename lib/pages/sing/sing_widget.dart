@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'sing_model.dart';
@@ -28,6 +29,11 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _model = createModel(context, () => SingModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.pushNamed('dashboard');
+    });
 
     _model.tabBarController = TabController(
       vsync: this,
@@ -538,8 +544,8 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
                                                                 0.0, 16.0),
                                                     child: FFButtonWidget(
                                                       onPressed: () async {
-                                                        context.pushNamed(
-                                                            'onbording');
+                                                        context
+                                                            .pushNamed('onbo');
                                                       },
                                                       text: 'Sign In',
                                                       options: FFButtonOptions(
@@ -736,7 +742,7 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
                                                                   }
 
                                                                   context.goNamedAuth(
-                                                                      'onbording',
+                                                                      'dashboard',
                                                                       context
                                                                           .mounted);
                                                                 },
@@ -819,7 +825,7 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
                                                                         }
 
                                                                         context.goNamedAuth(
-                                                                            'onbording',
+                                                                            'dashboard',
                                                                             context.mounted);
                                                                       },
                                                                       text:
@@ -1422,9 +1428,9 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 16.0),
                                                     child: FFButtonWidget(
-                                                      onPressed: () {
-                                                        print(
-                                                            'Button pressed ...');
+                                                      onPressed: () async {
+                                                        context
+                                                            .pushNamed('sing');
                                                       },
                                                       text: 'Registrar',
                                                       options: FFButtonOptions(
@@ -1562,7 +1568,7 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
                                                                   }
 
                                                                   context.goNamedAuth(
-                                                                      'onbording',
+                                                                      'dashboard',
                                                                       context
                                                                           .mounted);
                                                                 },
@@ -1645,7 +1651,7 @@ class _SingWidgetState extends State<SingWidget> with TickerProviderStateMixin {
                                                                         }
 
                                                                         context.goNamedAuth(
-                                                                            'onbording',
+                                                                            'dashboard',
                                                                             context.mounted);
                                                                       },
                                                                       text:
