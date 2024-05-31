@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -72,30 +73,62 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const DashboardWidget() : const SingWidget(),
+          appStateNotifier.loggedIn ? const OnboWidget() : const SingUpWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const DashboardWidget() : const SingWidget(),
+              appStateNotifier.loggedIn ? const OnboWidget() : const SingUpWidget(),
         ),
         FFRoute(
-          name: 'sing',
-          path: '/sing',
-          builder: (context, params) => const SingWidget(),
-        ),
-        FFRoute(
-          name: 'dashboard',
-          path: '/dashboard',
-          builder: (context, params) => const DashboardWidget(),
+          name: 'SingUp',
+          path: '/singUp',
+          builder: (context, params) => const SingUpWidget(),
         ),
         FFRoute(
           name: 'onbo',
           path: '/onbo',
           builder: (context, params) => const OnboWidget(),
+        ),
+        FFRoute(
+          name: 'Dashboard',
+          path: '/dashboard',
+          builder: (context, params) => const DashboardWidget(),
+        ),
+        FFRoute(
+          name: 'IMAGENES',
+          path: '/imagenes',
+          builder: (context, params) => const ImagenesWidget(),
+        ),
+        FFRoute(
+          name: 'googlemaps',
+          path: '/googlemaps',
+          builder: (context, params) => GooglemapsWidget(
+            local: params.getParam<LatLng>(
+              'local',
+              ParamType.LatLng,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'youtubeedwin',
+          path: '/youtubeedwin',
+          builder: (context, params) => const YoutubeedwinWidget(),
+        ),
+        FFRoute(
+          name: 'blanca_dashboard',
+          path: '/blancaDashboard',
+          builder: (context, params) => const BlancaDashboardWidget(),
+        ),
+        FFRoute(
+          name: 'youtubeblanca',
+          path: '/youtubeblanca',
+          builder: (context, params) => const YoutubeblancaWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -264,7 +297,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/sing';
+            return '/singUp';
           }
           return null;
         },
